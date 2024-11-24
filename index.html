@@ -99,7 +99,7 @@
   </section>
 
   <script>
-    // Calculator 1: Midterm and Finals
+    // Helper function to handle form submission and fetch data from backend
     async function calculateFinalGrade() {
       const midtermGrade = parseFloat(document.getElementById('midtermGrade').value);
       const finalGrade = parseFloat(document.getElementById('finalGrade').value);
@@ -116,11 +116,12 @@
       });
 
       const data = await response.json();
-      document.getElementById('finalGradeResult').textContent = `Your Final Grade is: ${data.finalGrade.toFixed(2)}`;
-      document.getElementById('finalGradeResult').style.display = 'block';
+      if (data.finalGrade !== undefined) {
+        document.getElementById('finalGradeResult').textContent = `Your Final Grade is: ${data.finalGrade.toFixed(2)}`;
+        document.getElementById('finalGradeResult').style.display = 'block';
+      }
     }
 
-    // Calculator 2: Raw Grade Calculation
     async function calculateRawGrade() {
       const participation = parseFloat(document.getElementById('participation').value);
       const quizzes = parseFloat(document.getElementById('quizzes').value);
@@ -138,11 +139,12 @@
       });
 
       const data = await response.json();
-      document.getElementById('rawGradeResult').textContent = `Your Raw Grade is: ${data.rawGrade.toFixed(2)}`;
-      document.getElementById('rawGradeResult').style.display = 'block';
+      if (data.rawGrade !== undefined) {
+        document.getElementById('rawGradeResult').textContent = `Your Raw Grade is: ${data.rawGrade.toFixed(2)}`;
+        document.getElementById('rawGradeResult').style.display = 'block';
+      }
     }
 
-    // Calculator 3: Lec and Lab Grade Calculation
     async function calculateLecLabGrade() {
       const lecGrade = parseFloat(document.getElementById('lecGrade').value);
       const labGrade = parseFloat(document.getElementById('labGrade').value);
@@ -159,8 +161,10 @@
       });
 
       const data = await response.json();
-      document.getElementById('lecLabGradeResult').textContent = `Your Lec/Lab Final Grade is: ${data.finalGrade.toFixed(2)}`;
-      document.getElementById('lecLabGradeResult').style.display = 'block';
+      if (data.finalGrade !== undefined) {
+        document.getElementById('lecLabGradeResult').textContent = `Your Lec/Lab Final Grade is: ${data.finalGrade.toFixed(2)}`;
+        document.getElementById('lecLabGradeResult').style.display = 'block';
+      }
     }
   </script>
 
