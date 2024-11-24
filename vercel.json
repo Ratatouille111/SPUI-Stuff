@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "public/index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/calculate-final-grade",
+      "dest": "/api/calculate-final-grade.js"
+    },
+    {
+      "src": "/api/calculate-raw-grade",
+      "dest": "/api/calculate-raw-grade.js"
+    },
+    {
+      "src": "/api/calculate-lec-lab-grade",
+      "dest": "/api/calculate-lec-lab-grade.js"
+    }
+  ]
+}
