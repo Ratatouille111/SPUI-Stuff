@@ -1,19 +1,4 @@
-# Function to calculate final grade
-def calculate_final_grade(previous_grade, current_grade):
-    # Weightage of the grades
-    previous_weight = 1 / 3
-    current_weight = 2 / 3
-    
-    # Calculating the final grade
-    final_grade = (previous_grade * previous_weight) + (current_grade * current_weight)
-    return final_grade
-
-# Input grades
-previous_grade = float(input("Enter your previous grade (1/3 of final): "))
-current_grade = float(input("Enter your current grade (2/3 of final): "))
-
-# Calculate final grade
-final_grade = calculate_final_grade(previous_grade, current_grade)
-
-# Output the result
-print(f"Your final grade is: {final_grade:.2f}")
+mkdir grade-calculators
+cd grade-calculators
+npm init -y
+npm install express
