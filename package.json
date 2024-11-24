@@ -1,0 +1,15 @@
+{
+  "name": "grade-calculators",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "start": "vercel start"
+  },
+  "dependencies": {
+    "express": "^4.17.1" // If you're using Express, though it's not strictly needed for basic functions
+  },
+  "devDependencies": {
+    "vercel": "^30.0.0"
+  }
+}
