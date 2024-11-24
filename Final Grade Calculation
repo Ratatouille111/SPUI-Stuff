@@ -1,4 +1,0 @@
-mkdir grade-calculators
-cd grade-calculators
-npm init -y
-npm install express
