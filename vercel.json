@@ -6,7 +6,15 @@
       "use": "@vercel/static"
     },
     {
-      "src": "api/*.js",
+      "src": "api/calculate-final-grade.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/calculate-raw-grade.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/calculate-lec-lab-grade.js",
       "use": "@vercel/node"
     }
   ],
@@ -22,6 +30,10 @@
     {
       "src": "/api/calculate-lec-lab-grade",
       "dest": "/api/calculate-lec-lab-grade.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/index.html"
     }
   ]
 }
