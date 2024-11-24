@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Calculators</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+    h1 {
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    .form-group button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .form-group button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Grade Calculators</h1>
+
+  <!-- Calculator 1: Final Grade from Midterm and Finals -->
+  <section>
+    <h2>Calculator 1: Midterm and Finals</h2>
+    <div class="form-group">
+      <label for="midtermGrade">Midterm Grade (1/3)</label>
+      <input type="number" id="midtermGrade" placeholder="Enter midterm grade" required>
+    </div>
+    <div class="form-group">
+      <label for="finalGrade">Final Grade (2/3)</label>
+      <input type="number" id="finalGrade" placeholder="Enter final grade" required>
+    </div>
+    <button onclick="calculateFinalGrade()">Calculate Final Grade</button>
+    <div id="finalGradeResult" class="result" style="display: none;"></div>
+  </section>
+
+  <!-- Calculator 2: Raw Grade Calculation -->
+  <section>
+    <h2>Calculator 2: Raw Grade Calculation</h2>
+    <div class="form-group">
+      <label for="participation">Class Participation (1/3)</label>
+      <input type="number" id="participation" placeholder="Enter class participation grade" required>
+    </div>
+    <div class="form-group">
+      <label for="quizzes">Quizzes (1/3)</label>
+      <input type="number" id="quizzes" placeholder="Enter quizzes grade" required>
+    </div>
+    <div class="form-group">
+      <label for="finalExam">Final Exam (1/3)</label>
+      <input type="number" id="finalExam" placeholder="Enter final exam grade" required>
+    </div>
+    <button onclick="calculateRawGrade()">Calculate Raw Grade</button>
+    <div id="rawGradeResult" class="result" style="display: none;"></div>
+  </section>
+
+  <!-- Calculator 3: Lec and Lab Grade Calculation -->
+  <section>
+    <h2>Calculator 3: Lec and Lab Grade Calculation</h2>
+    <div class="form-group">
+      <label for="lecGrade">Lec Grade (60%)</label>
+      <input type="number" id="lecGrade" placeholder="Enter Lec grade" required>
+    </div>
+    <div class="form-group">
+      <label for="labGrade">Lab Grade (40%)</label>
+      <input type="number" id="labGrade" placeholder="Enter Lab grade" required>
+    </div>
+    <button onclick="calculateLecLabGrade()">Calculate Lec/Lab Final Grade</button>
+    <div id="lecLabGradeResult" class="result" style="display: none;"></div>
+  </section>
+
+  <script>
+    // Calculator 1: Midterm and Finals
+    async function calculateFinalGrade() {
+      const midtermGrade = parseFloat(document.getElementById('midtermGrade').value);
+      const finalGrade = parseFloat(document.getElementById('finalGrade').value);
+
+      if (isNaN(midtermGrade) || isNaN(finalGrade)) {
+        alert('Please enter valid grades for midterm and final.');
+        return;
+      }
+
+      const response = await fetch('/calculate-final-grade', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ midtermGrade, finalGrade })
+      });
+
+      const data = await response.json();
+      document.getElementById('finalGradeResult').textContent = `Your Final Grade is: ${data.finalGrade.toFixed(2)}`;
+      document.getElementById('finalGradeResult').style.display = 'block';
+    }
+
+    // Calculator 2: Raw Grade Calculation
+    async function calculateRawGrade() {
+      const participation = parseFloat(document.getElementById('participation').value);
+      const quizzes = parseFloat(document.getElementById('quizzes').value);
+      const finalExam = parseFloat(document.getElementById('finalExam').value);
+
+      if (isNaN(participation) || isNaN(quizzes) || isNaN(finalExam)) {
+        alert('Please enter valid grades for participation, quizzes, and final exam.');
+        return;
+      }
+
+      const response = await fetch('/calculate-raw-grade', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ participation, quizzes, finalExam })
+      });
+
+      const data = await response.json();
+      document.getElementById('rawGradeResult').textContent = `Your Raw Grade is: ${data.rawGrade.toFixed(2)}`;
+      document.getElementById('rawGradeResult').style.display = 'block';
+    }
+
+    // Calculator 3: Lec and Lab Grade Calculation
+    async function calculateLecLabGrade() {
+      const lecGrade = parseFloat(document.getElementById('lecGrade').value);
+      const labGrade = parseFloat(document.getElementById('labGrade').value);
+
+      if (isNaN(lecGrade) || isNaN(labGrade)) {
+        alert('Please enter valid grades for Lec and Lab.');
+        return;
+      }
+
+      const response = await fetch('/calculate-lec-lab-grade', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lecGrade, labGrade })
+      });
+
+      const data = await response.json();
+      document.getElementById('lecLabGradeResult').textContent = `Your Lec/Lab Final Grade is: ${data.finalGrade.toFixed(2)}`;
+      document.getElementById('lecLabGradeResult').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
