@@ -4,7 +4,7 @@ const port = 3000;
 
 // Middleware to parse JSON data from requests
 app.use(express.json());
-app.use(express.static('public')); // Serve static files from the 'public' folder
+app.use(express.static('public')); // Serve static files from 'public' folder
 
 // API route 1: Midterm & Raw Finals Grade Calculation
 app.post('/calculate-final-grade', (req, res) => {
@@ -46,7 +46,6 @@ app.post('/calculate-lec-lab-grade', (req, res) => {
   if (typeof lecGrade !== 'number' || typeof labGrade !== 'number') {
     return res.status(400).json({ error: 'Both Lec and Lab grades must be numbers' });
   }
-
   // Calculate final grade (Lec: 60%, Lab: 40%)
   const finalGradeLecLab = (lecGrade * 0.6) + (labGrade * 0.4);
 
