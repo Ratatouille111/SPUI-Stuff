@@ -5,43 +5,107 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grade Calculators</title>
   <style>
+    /* General Styles */
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #f4f4f9;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #faf8e3; /* Light yellow background */
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
     }
+
     h1 {
+      font-size: 2.5rem;
+      color: #3a6b35; /* Dark green */
+      margin-top: 20px;
       text-align: center;
     }
+
+    section {
+      width: 90%;
+      max-width: 500px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 15px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: #3a6b35; /* Dark green */
+      margin-bottom: 15px;
+    }
+
     .form-group {
       margin-bottom: 15px;
     }
+
     .form-group label {
       display: block;
+      font-size: 1rem;
+      color: #3a6b35;
+      margin-bottom: 5px;
     }
+
     .form-group input {
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      box-sizing: border-box;
+      padding: 10px;
+      border: 1px solid #c9e2b3; /* Light green border */
+      border-radius: 4px;
+      background-color: #f1f8e9; /* Light yellow background */
+      font-size: 1rem;
     }
+
     .form-group button {
-      padding: 10px 20px;
-      background-color: #007BFF;
-      color: white;
+      width: 100%;
+      padding: 12px;
+      background-color: #ffcc00; /* Bright yellow button */
       border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 1.1rem;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
+
     .form-group button:hover {
-      background-color: #0056b3;
+      background-color: #ffb300; /* Darker yellow on hover */
     }
+
     .result {
       margin-top: 20px;
-      padding: 10px;
-      background-color: #d4edda;
-      color: #155724;
+      padding: 15px;
+      background-color: #d4edda; /* Light green background */
+      color: #155724; /* Green text */
       border: 1px solid #c3e6cb;
       text-align: center;
+      border-radius: 5px;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      section {
+        width: 95%;
+        padding: 15px;
+      }
+
+      .form-group input {
+        padding: 8px;
+      }
+
+      .form-group button {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -49,7 +113,7 @@
 
   <h1>Grade Calculators</h1>
 
-  <!-- Calculator 1: Final Grade from Midterm and Finals -->
+  <!-- Calculator 1: Midterm and Finals -->
   <section>
     <h2>Calculator 1: Midterm and Finals</h2>
     <div class="form-group">
@@ -64,7 +128,7 @@
     <div id="finalGradeResult" class="result" style="display: none;"></div>
   </section>
 
-  <!-- Calculator 2: Raw Grade Calculation -->
+  <!-- Calculator 2: Raw Grade -->
   <section>
     <h2>Calculator 2: Raw Grade Calculation</h2>
     <div class="form-group">
@@ -83,7 +147,7 @@
     <div id="rawGradeResult" class="result" style="display: none;"></div>
   </section>
 
-  <!-- Calculator 3: Lec and Lab Grade Calculation -->
+  <!-- Calculator 3: Lec and Lab -->
   <section>
     <h2>Calculator 3: Lec and Lab Grade Calculation</h2>
     <div class="form-group">
@@ -99,7 +163,6 @@
   </section>
 
   <script>
-    // Helper function to handle form submission and fetch data from backend
     async function calculateFinalGrade() {
       const midtermGrade = parseFloat(document.getElementById('midtermGrade').value);
       const finalGrade = parseFloat(document.getElementById('finalGrade').value);
@@ -109,7 +172,7 @@
         return;
       }
 
-      const response = await fetch('/calculate-final-grade', {
+      const response = await fetch('/api/calculate-final-grade', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ midtermGrade, finalGrade })
@@ -132,7 +195,7 @@
         return;
       }
 
-      const response = await fetch('/calculate-raw-grade', {
+      const response = await fetch('/api/calculate-raw-grade', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ participation, quizzes, finalExam })
@@ -154,7 +217,7 @@
         return;
       }
 
-      const response = await fetch('/calculate-lec-lab-grade', {
+      const response = await fetch('/api/calculate-lec-lab-grade', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lecGrade, labGrade })
